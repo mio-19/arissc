@@ -8,5 +8,6 @@ object TopLevelVerilog {
     SpinalVerilog(new TH22)
     SpinalVerilog(new TH23)
     SpinalVerilog(new Regi(Bool()))
+    SpinalVerilog(new FIFO(9, UInt(16 bits)))
   }
 }

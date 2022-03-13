@@ -4,7 +4,8 @@ import spinal.core._
 
 // Valid / Waiting - dual valid; ack = False
 // Acked - dual ???; ack = True
-// Cleared - dual cleared; ack = True
+// Sent / Acked - dual valid; ack = True
+// Cleared / Acked - dual cleared; ack = True
 // Empty / Waiting - data cleared; ack = False
 // Waiting - data ???; ack = False
 
@@ -21,9 +22,11 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   // for out
   def isStatusEmpty = dual.isEmpty && ~ack
 
-  def isStatusWaiting = ~ack
+  def isStatusWaitingOrReturning = ~ack
 
   def isStatusAcked = ack
+
+  def isStatusSent = dual.isValid && ack
 }
 
 object ChannelOut {

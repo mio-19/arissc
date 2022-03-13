@@ -24,6 +24,6 @@ class Regi[T <: Data](data: T) extends Component {
     val out1 = ChannelOut(data).noCombLoopCheck
   }
 
-  io.in1.ack := Mux(io.in1.isStatusValid && io.out1.isStatusValid, True, Mux(io.in1.isStatusCleared, False, io.in1.ack))
-  io.out1.dual := Mux(io.in1.isStatusValid && io.out1.isStatusWaiting, io.in1.dual, Mux(io.out1.isStatusAcked, Dual.emptyFor(io.out1.dual), io.out1.dual))
+  io.in1.ack := Mux(ClockDomain.current.readResetWire, False, Mux(io.in1.isStatusValid && io.out1.isStatusValid, True, Mux(io.in1.isStatusCleared, False, io.in1.ack)))
+  io.out1.dual := Mux(ClockDomain.current.readResetWire, Dual.emptyFor(io.out1.dual), Mux(io.in1.isStatusValid && io.out1.isStatusWaitingOrReturning, io.in1.dual, Mux(io.out1.isStatusAcked, Dual.emptyFor(io.out1.dual), io.out1.dual)))
 }

@@ -11,10 +11,14 @@ case class Dual[T <: Data](data: T) extends Bundle {
   def isValid: Bool = ~ones.asBits === flipped.asBits
 
   def unsafeExtract = ones
+
+  def unsafeVerify[U <: Data](x: U): Bool = this.asBits === Dual.from(x).asBits
 }
 
 object Dual {
   def from[T <: Data](x: T): Dual[T] = (x.asBits ## ~x.asBits).as(new Dual(x))
+
   def empty[T <: Data](x: T): Dual[T] = U(0).as(new Dual(x))
+
   def emptyFor[T <: Data](x: Dual[T]): Dual[T] = Zeros(x)
 }

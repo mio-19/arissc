@@ -6,6 +6,7 @@ import spinal.core._
 // Acked - dual ???; ack = True
 // Cleared - dual cleared; ack = True
 // Empty / Waiting - data cleared; ack = False
+// Waiting - data ???; ack = False
 
 case class ChannelIn[T <: Data](data: T) extends Bundle {
   val dual = in(Dual(data))
@@ -15,9 +16,11 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   // for in
   def isStatusValid = dual.isValid && ~ack
 
-  def isStatusCleared = dual.isCleared && ack
+  def isStatusCleared = dual.isEmpty && ack
 
   // for out
+  def isStatusEmpty = dual.isEmpty && ~ack
+
   def isStatusWaiting = ~ack
 
   def isStatusAcked = ack

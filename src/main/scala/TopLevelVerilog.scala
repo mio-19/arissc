@@ -1,5 +1,5 @@
 import base._
-import spinal.core.SpinalVerilog
+import spinal.core._
 
 object TopLevelVerilog {
   def main(args: Array[String]) {
@@ -7,5 +7,6 @@ object TopLevelVerilog {
     SpinalVerilog(new TH12)
     SpinalVerilog(new TH22)
     SpinalVerilog(new TH23)
+    SpinalVerilog(new Regi(Bool()))
   }
 }

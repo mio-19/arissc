@@ -1,4 +1,4 @@
-package base
+package arissc.base
 
 import spinal.core.{Bundle, Component, Data}
 

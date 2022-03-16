@@ -12,11 +12,6 @@ object FIFOSim {
 
   def main(args: Array[String]) {
     SimConf.doSim(new FIFO(512, UInt(64 bits))) { dut =>
-      //Fork a process to generate the reset and the clock on the dut
-      dut.clockDomain.forkStimulus(period = 10)
-
-      var modelState = 0
-
       val data: Seq[Int] = (1 to testSize).map(_ => Random.nextInt().abs).toSeq
 
       fork {

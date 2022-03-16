@@ -1,5 +1,6 @@
 package arissc.base
 
+import arissc.SimConf.SimConf
 import spinal.core._
 import spinal.core.sim._
 
@@ -10,7 +11,7 @@ object FIFOSim {
   val testSize = 5
 
   def main(args: Array[String]) {
-    SimConfig.withWave.doSim(new FIFO(512, UInt(64 bits))) { dut =>
+    SimConf.doSim(new FIFO(512, UInt(64 bits))) { dut =>
       //Fork a process to generate the reset and the clock on the dut
       dut.clockDomain.forkStimulus(period = 10)
 

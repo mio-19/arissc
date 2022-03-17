@@ -5,10 +5,10 @@ import spinal.core.sim._
 
 object readChannel {
   def apply[T <: Data](ch: ChannelIn[T]): Data = {
-    waitUntil(ch.isStatusValid.toBoolean)
+    waitUntil(ch.isStatusValidSim)
     val data = ch.unsafeExtract
     ch.ack #= true
-    waitUntil(ch.isStatusCleared.toBoolean)
+    waitUntil(ch.isStatusClearedSim)
     ch.ack #= false
     data
   }

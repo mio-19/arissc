@@ -19,17 +19,16 @@ object FIFOSim {
       sleep(1000)
       dut.clockDomain.deassertReset()
 
-      //fork {
-      val in = dut.io.in1
-      for(x <- data) {
-        writeChannel(in, x)
+      fork {
+        val in = dut.io.in1
+        for (x <- data) {
+          writeChannel(in, x)
+        }
       }
-      False
-      //}
 
-      //val readed: Seq[Int] = (1 to testSize).map(_ => readChannel(dut.io.out1).asBits.asUInt.toInt).toSeq
+      val readed: Seq[Int] = (1 to testSize).map(_ => readChannel(dut.io.out1).asBits.asUInt.toInt).toSeq
 
-      //assert(data == readed)
+      assert(data == readed)
     }
   }
 }

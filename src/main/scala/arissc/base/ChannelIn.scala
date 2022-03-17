@@ -18,7 +18,11 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   // for in
   def isStatusValid = dual.isValid && ~ack
 
+  def isStatusValidSim = dual.isValidSim && !ack.toBoolean
+
   def isStatusCleared = dual.isEmpty && ack
+
+  def isStatusClearedSim = dual.isEmptySim && ack.toBoolean
 
   // for out
   def isStatusEmpty = dual.isEmpty && ~ack
@@ -26,6 +30,7 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   def isStatusEmptySim = dual.isEmptySim && !ack.toBoolean
 
   def isStatusWaitingOrReturning = ~ack
+
   def isStatusWaitingOrReturningSim = !ack.toBoolean
 
   def isStatusAcked = ack

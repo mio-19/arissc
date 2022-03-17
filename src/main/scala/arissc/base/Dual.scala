@@ -14,6 +14,8 @@ case class Dual[T <: Data](data: T) extends Bundle {
 
   def isValid: Bool = ~ones.asBits === flipped.asBits
 
+  def isValidSim: Boolean = ~ones.asBigInt == flipped.asBigInt
+
   def unsafeExtract = ones
 
   def unsafeVerify[U <: Data](x: U): Bool = this.asBits === Dual.from(x).asBits

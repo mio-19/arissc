@@ -1,6 +1,7 @@
 package arissc.base
 
 import arissc.SimConf.SimConf
+import arissc.base.simutils._
 import spinal.core._
 import spinal.core.sim._
 
@@ -18,6 +19,7 @@ object FIFOSim {
       dut.clockDomain.assertReset()
       sleep(1000)
       dut.clockDomain.deassertReset()
+      dut.io.out1.ack #= false
 
       fork {
         val in = dut.io.in1
@@ -26,7 +28,9 @@ object FIFOSim {
         }
       }
 
-      val readed: Seq[Int] = (1 to testSize).map(_ => readChannel(dut.io.out1).asBits.asUInt.toInt).toSeq
+
+      val readed: Seq[Int] = (1 to testSize).map(_ => readChannel(dut.io.out1).asBigInt.toInt).toSeq
+      println(readed)
 
       assert(data == readed)
     }

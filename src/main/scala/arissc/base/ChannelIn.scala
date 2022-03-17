@@ -37,6 +37,7 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   def isStatusAckedSim = ack.toBoolean
 
   def isStatusSent = dual.isValid && ack
+  def isStatusSentSim = dual.isValidSim && ack.toBoolean
 
   def unsafeExtract = dual.unsafeExtract
 

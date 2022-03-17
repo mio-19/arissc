@@ -26,10 +26,10 @@ package object simutils {
     for (x <- data.flatten.reverse) {
       val item = i & ((BigInt(2) << x.getBitsWidth) - 1)
       sim.SimBaseTypePimper(x).assignBigInt(item)
-      if (sim.SimBaseTypePimper(x).toBigInt != item) {
-        sleep(1)
-        assert(sim.SimBaseTypePimper(x).toBigInt == item)
-      }
+      //if (sim.SimBaseTypePimper(x).toBigInt != item) {
+      //  sleep(1)
+      //  assert(sim.SimBaseTypePimper(x).toBigInt == item)
+      //}
       i = i >> x.getBitsWidth
     }
   }

@@ -21,6 +21,8 @@ object FIFOSim {
       dut.clockDomain.deassertReset()
       dut.io.out1.ack #= false
 
+      assert(dut.io.in1.dual.ones.getBitsWidth==width)
+
       //fork {
         val in = dut.io.in1
         for (x <- data) {

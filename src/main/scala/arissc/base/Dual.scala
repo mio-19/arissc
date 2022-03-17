@@ -3,6 +3,7 @@ package arissc.base
 import spinal.core._
 import spinal.core.sim._
 import arissc.base.simutils._
+import arissc.base.utils.flipBigInt
 
 case class Dual[T <: Data](data: T) extends Bundle {
   val ones = data.clone()
@@ -14,7 +15,7 @@ case class Dual[T <: Data](data: T) extends Bundle {
 
   def isValid: Bool = ~ones.asBits === flipped.asBits
 
-  def isValidSim: Boolean = ~ones.asBigInt == flipped.asBigInt
+  def isValidSim: Boolean = flipBigInt(ones.getBitsWidth, ones.asBigInt) equals flipped.asBigInt
 
   def unsafeExtract = ones
 

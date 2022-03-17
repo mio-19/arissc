@@ -16,12 +16,13 @@ object FIFOSim {
     SimConf.doSim(new FIFO(512, UInt(width bits))) { dut =>
       val data: Seq[Int] = (1 to testSize).map(_ => Random.nextInt().abs)
 
+      dut.io.out1.ack #= false
       dut.clockDomain.assertReset()
       sleep(1000)
       dut.clockDomain.deassertReset()
-      dut.io.out1.ack #= false
 
       assert(dut.io.in1.dual.ones.getBitsWidth==width)
+      assert(dut.io.out1.isStatusEmptySim)
 
       fork {
         val in = dut.io.in1
@@ -30,11 +31,10 @@ object FIFOSim {
         }
       }
 
-
-      val readed: Seq[Int] = (1 to testSize).map(_ => readChannel(dut.io.out1).toInt).toSeq
-      println(readed)
-
-      assert(data == readed)
+      for(expect <- data) {
+        val got = readChannel(dut.io.out1).toInt
+        assert(expect equals got)
+      }
     }
   }
 }

@@ -17,6 +17,7 @@ object writeChannel {
     //assert(ch.isStatusValidSim)
     waitUntil(ch.isStatusAckedSim)
     ch.dual ##= 0
+    println("Write "+data)
     waitUntil(ch.isStatusEmptySim)
   }
 }

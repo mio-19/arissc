@@ -1,6 +1,7 @@
 package arissc.base
 
 import spinal.core._
+import spinal.core.sim._
 
 // Valid / Waiting - dual valid; ack = False
 // Acked - dual ???; ack = True
@@ -10,8 +11,8 @@ import spinal.core._
 // Waiting - data ???; ack = False
 
 case class ChannelIn[T <: Data](data: T) extends Bundle {
-  val dual = in(Dual(data))
-  val ack = out Bool()
+  val dual = in(Dual(data)) simPublic()
+  val ack = out Bool() simPublic()
 
   // following api can be unsafe
   // for in
@@ -22,7 +23,10 @@ case class ChannelIn[T <: Data](data: T) extends Bundle {
   // for out
   def isStatusEmpty = dual.isEmpty && ~ack
 
+  def isStatusEmptySim = dual.isEmptySim && !ack.toBoolean
+
   def isStatusWaitingOrReturning = ~ack
+  def isStatusWaitingOrReturningSim = !ack.toBoolean
 
   def isStatusAcked = ack
 

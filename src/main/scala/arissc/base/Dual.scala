@@ -2,7 +2,7 @@ package arissc.base
 
 import spinal.core._
 import spinal.core.sim._
-import arissc.base.sim._
+import arissc.base.simutils._
 
 case class Dual[T <: Data](data: T) extends Bundle {
   val ones = data.clone()
@@ -10,7 +10,7 @@ case class Dual[T <: Data](data: T) extends Bundle {
 
   def isEmpty: Bool = (ones ## flipped).asBits.asUInt === U(0)
 
-  def isEmptySim: Boolean = simutils.getBigInt(ones) == 0 && simutils.getBigInt(flipped) == 0
+  def isEmptySim: Boolean = ones.asBigInt == 0 && flipped.asBigInt == 0
 
   def isValid: Bool = ~ones.asBits === flipped.asBits
 

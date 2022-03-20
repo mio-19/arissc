@@ -27,12 +27,12 @@ object FIFOSim {
 
       for (x <- data) {
         writeChannel(dut.io.in1, x)
-        sleep(1234)
       }
 
       for (expect <- data) {
         val got = readChannel(dut.io.out1).toInt
         assert(expect equals got)
+        sleep(1234)
       }
     }
   }

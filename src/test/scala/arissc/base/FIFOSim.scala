@@ -17,21 +17,20 @@ object FIFOSim {
       val data: Seq[Int] = (1 to testSize).map(_ => Random.nextInt().abs)
 
       dut.io.out1.ack #= false
+      dut.io.in1.dual ##= 0
       dut.clockDomain.assertReset()
       sleep(1000)
       dut.clockDomain.deassertReset()
 
-      assert(dut.io.in1.dual.ones.getBitsWidth==width)
+      assert(dut.io.in1.dual.ones.getBitsWidth == width)
       assert(dut.io.out1.isStatusEmptySim)
 
-      fork {
-        val in = dut.io.in1
-        for (x <- data) {
-          writeChannel(in, x)
-        }
+      for (x <- data) {
+        writeChannel(dut.io.in1, x)
+        sleep(1234)
       }
 
-      for(expect <- data) {
+      for (expect <- data) {
         val got = readChannel(dut.io.out1).toInt
         assert(expect equals got)
       }

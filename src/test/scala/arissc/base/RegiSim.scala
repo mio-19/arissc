@@ -18,15 +18,28 @@ object RegiSim {
       sleep(1000)
       dut.clockDomain.deassertReset()
 
-      val data = Random.nextInt().abs
+      {
+        val data = Random.nextInt().abs
 
-      fork {
-        writeChannel(dut.io.in1, data)
+        fork {
+          writeChannel(dut.io.in1, data)
+        }
+
+        sleep(6432)
+        val got = readChannel(dut.io.out1).toInt
+        assert(got == data)
       }
+      {
+        val data = Random.nextInt().abs
 
-      sleep(6432)
-      val got = readChannel(dut.io.out1).toInt
-      assert(got == data)
+        fork {
+          sleep(6432)
+          writeChannel(dut.io.in1, data)
+        }
+
+        val got = readChannel(dut.io.out1).toInt
+        assert(got == data)
+      }
     }
   }
 }

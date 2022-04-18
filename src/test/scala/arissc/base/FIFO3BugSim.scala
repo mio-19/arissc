@@ -29,8 +29,10 @@ object FIFO3BugSim {
         val got = readChannel(dut.io.out1).toInt
         assert(got == data)
       }
+      assert(dut.io.out1.dual.isEmptySim)
       sleep(6432)
       // here we have a bug
+      assert(dut.io.out1.dual.isEmptySim)
       assert(dut.io.out1.isStatusEmptySim)
       assert(dut.io.in1.isStatusWaitingOrReturningSim)
 

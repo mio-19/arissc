@@ -33,7 +33,7 @@ object FIFO3BugSim {
       assert(dut.regi2.io.out1.dual.isEmptySim)
 
       // here we have a bug
-      assert(dut.regi1.io.out1.dual.isEmptySim)
+      assert(dut.regi1.io.out1.dual.isEmptySim) // todo: check me
       sleep(1)
       assert(dut.io.out1.isStatusEmptySim)
       sleep(6432)

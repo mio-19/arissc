@@ -7,7 +7,7 @@ import arissc.base.simutils._
 
 import scala.util.Random
 
-object FIFO3Sim {
+object FIFOx3Sim {
   def main(args: Array[String]) {
     val width = 64
     SimConf.doSim(new FIFO(3, UInt(width bits))) { dut =>

@@ -31,6 +31,8 @@ object FIFO3BugSim {
       }
       sleep(6432)
       // here we have a bug
+      assert(dut.io.out1.isStatusEmptySim)
+      assert(dut.io.in1.isStatusWaitingOrReturningSim)
 
       {
         val data = Random.nextInt().abs

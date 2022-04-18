@@ -29,6 +29,9 @@ object FIFO3BugSim {
         val got = readChannel(dut.io.out1).toInt
         assert(got == data)
       }
+      sleep(6432)
+      // here
+
       {
         val data = Random.nextInt().abs
 

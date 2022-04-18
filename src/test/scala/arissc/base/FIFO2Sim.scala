@@ -54,7 +54,7 @@ object FIFO2Sim {
       }
       test1
 
-      def test2 = {
+     {
         val data0 = Random.nextInt().abs
         val data1 = Random.nextInt().abs
 
@@ -67,7 +67,40 @@ object FIFO2Sim {
         assert(readChannel(dut.io.out1).toInt == data0)
         assert(readChannel(dut.io.out1).toInt == data1)
       }
-      test2
+
+      {
+        val data0 = Random.nextInt().abs
+        val data1 = Random.nextInt().abs
+        val data2 = Random.nextInt().abs
+
+        fork {
+          sleep(6432)
+          writeChannel(dut.io.in1, data0)
+          writeChannel(dut.io.in1, data1)
+          writeChannel(dut.io.in1, data2)
+        }
+
+        assert(readChannel(dut.io.out1).toInt == data0)
+        assert(readChannel(dut.io.out1).toInt == data1)
+        assert(readChannel(dut.io.out1).toInt == data2)
+      }
+
+      {
+        val data0 = Random.nextInt().abs
+        val data1 = Random.nextInt().abs
+        val data2 = Random.nextInt().abs
+
+        fork {
+          writeChannel(dut.io.in1, data0)
+          writeChannel(dut.io.in1, data1)
+          writeChannel(dut.io.in1, data2)
+        }
+
+        sleep(6432)
+        assert(readChannel(dut.io.out1).toInt == data0)
+        assert(readChannel(dut.io.out1).toInt == data1)
+        assert(readChannel(dut.io.out1).toInt == data2)
+      }
     }
   }
 }

@@ -30,6 +30,9 @@ object FIFO3BugSim {
         assert(got == data)
       }
       assert(dut.io.out1.dual.isEmptySim)
+      assert(dut.regi2.io.out1.dual.isEmptySim)
+      sleep(1)
+      assert(dut.io.out1.isStatusEmptySim)
       sleep(6432)
       // here we have a bug
       assert(dut.io.out1.dual.isEmptySim)

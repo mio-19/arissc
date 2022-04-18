@@ -7,11 +7,10 @@ import arissc.base.simutils._
 
 import scala.util.Random
 
-object RegiSim {
-
+object FIFO2Sim {
   def main(args: Array[String]) {
     val width = 64
-    SimConf.doSim(new Regi(UInt(width bits))) { dut =>
+    SimConf.doSim(new FIFO(2, UInt(width bits))) { dut =>
       dut.io.out1.ack #= false
       dut.io.in1.dual ##= 0
       dut.clockDomain.assertReset()

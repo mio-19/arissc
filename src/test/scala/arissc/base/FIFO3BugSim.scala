@@ -30,7 +30,7 @@ object FIFO3BugSim {
         assert(got == data)
       }
       sleep(6432)
-      // here
+      // here we have a bug
 
       {
         val data = Random.nextInt().abs

@@ -31,10 +31,12 @@ object FIFO3BugSim {
       }
       assert(dut.io.out1.dual.isEmptySim)
       assert(dut.regi2.io.out1.dual.isEmptySim)
+
+      // here we have a bug
+      assert(dut.regi1.io.out1.dual.isEmptySim)
       sleep(1)
       assert(dut.io.out1.isStatusEmptySim)
       sleep(6432)
-      // here we have a bug
       assert(dut.io.out1.dual.isEmptySim)
       assert(dut.io.out1.isStatusEmptySim)
       assert(dut.io.in1.isStatusWaitingOrReturningSim)

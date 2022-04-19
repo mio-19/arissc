@@ -5,11 +5,11 @@ import spinal.core._
 // in1 : dual valid, ack = False; out1 : dual cleared, ack = False ;;; in1 Valid out1 Empty
 // in1 : dual valid, ack = False; out1 : ???, ack = False
 // in1 : dual valid, ack = False; out1 : dual valid, ack = False ;;; in1 Valid out1 Valid
-// in1 : dual ???, ack = True; out1 : dual valid, ack = False
+// in1 : dual ???, ack = True; out1 : dual valid, ack = False ;; data completeness
 // in1 : dual ???, ack = True; out1 : dual valid, ack = True
 // in1 : dual cleared, ack = True; out1 : dual ???, ack = True
 // in1 : dual cleared, ack = True; out1 : dual cleared, ack = True
-// in1 : dual cleared, ack = False; out1 : dual cleared, ack = ???
+// in1 : dual cleared, ack = False; out1 : dual cleared, ack = ??? ;; null completeness
 
 
 class Regi[T <: Data](data: T) extends Component {
